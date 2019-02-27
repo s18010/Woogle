@@ -1,0 +1,46 @@
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+
+.search-area form {
+  display: flex;
+  height: 38px;
+  width: 50%;
+  padding: 2px 15px;
+  margin: 0 auto;
+  border: solid 1px #dfe1e5;
+  border-radius: 25px;
+}
+
+.search-area input {
+  display: block;
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  height: 100%;
+  font-size: 1.2em;
+  border: none;
+  outline: 0;
+  padding: 5px 4px 0 20px;
+}
+
+.search-area input::placeholder {
+  color: #dfe1e5;
+}
+
+.search-area form:hover {
+  box-shadow: 0 0 10px #aaa;
+}
+
+.search-area button {
+  height: 70%;
+  width: 27px;
+  margin: auto 0;
+  mask-image: url('../img/search-solid.svg');
+  background-color: #4185f4;
+  background-size: cover;
+}
