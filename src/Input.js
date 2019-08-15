@@ -7,36 +7,31 @@ export default class Input extends Component {
       value: ''
     }
   }
-
   componentDidMount () {
     this.input.focus()
   }
-
+  onSubmit (e) {
+    e.preventDefault()
+    this.props.onSubmit(this.state.value)
+  }
+  handleChange (e) {
+    this.setState({ value: e.target.value })
+  }
   render () {
     return (
       <div className='search-area'>
         <form onSubmit={e => this.onSubmit(e)}>
           <input
-            ref={elem => { this.input = elem }}
+            ref={elem => {this.input = elem}}
             type='text'
             placeholder={this.props.placeholder}
             value={this.state.value}
             onChange={e => this.handleChange(e)}
           />
-          <button
-            type='submit'
-          />
+          <button type='submit'/>
         </form>
       </div>
     )
   }
 
-  onSubmit (e) {
-    e.preventDefault()
-    this.props.onSubmit(this.state.value)
-  }
-
-  handleChange (e) {
-    this.setState({ value: e.target.value })
-  }
 }

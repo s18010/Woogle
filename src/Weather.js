@@ -8,10 +8,37 @@ export default class Weather extends Component {
       data: null
     }
   }
+  componentWillReceiveProps (props) {
+      this.getWeatherInfo()
+    }
+
+    getWeatherInfo () {
+      const URL = 'https://api.openweathermap.org/data/2.5/weather'
+      const params = {
+        appid: 'ade5a3e23673a51a072c0fb1c8ace21c',
+        units: 'metric',
+        lat: this.props.lat,
+        lon: this.props.lon
+      }
+      request
+        .get(URL)
+        .query(params)
+        .end((err, res) => this.loadedJson(err, res))
+    }
+
+    loadedJson (err, res) {
+      if (err) return console.error(err)
+      if (!res.body) return console.log('no body')
+      this.setState({
+        data: res.body
+      })
+      console.log(this.state.data)
+    }
+
   render () {
     if (!this.state.data) {
       return (
-        <p />
+        <p/>
       )
     } else {
       const weather = this.state.data.weather[0]
@@ -21,7 +48,6 @@ export default class Weather extends Component {
 
       const detail = this.state.data.main
       const temp = Math.round(detail.temp)
-      // const humidity = detail.humidity
       const currentDate = new Date()
       const hour = String(currentDate.getHours())
       const minute = `0${String(currentDate.getMinutes())}`.slice(-2)
@@ -42,32 +68,5 @@ export default class Weather extends Component {
         </div>
       )
     }
-  }
-
-  componentWillReceiveProps (props) {
-    this.takeWeatherInfo()
-  }
-
-  takeWeatherInfo () {
-    const URL = 'https://api.openweathermap.org/data/2.5/weather'
-    const params = {
-      appid: 'ade5a3e23673a51a072c0fb1c8ace21c',
-      units: 'metric',
-      lat: this.props.lat,
-      lon: this.props.lon
-    }
-    request
-      .get(URL)
-      .query(params)
-      .end((err, res) => this.loadedJson(err, res))
-  }
-
-  loadedJson (err, res) {
-    if (err) return console.error(err)
-    if (!res.body) return console.log('no body')
-    this.setState({
-      data: res.body
-    })
-    console.log(this.state.data)
   }
 }
